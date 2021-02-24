@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>10_过渡&动画1</title>
+  <style>
+    .v-leave-active {
+      animation: move 2s 1s
+    }
+
+    @keyframes move {
+      0% {
+        transform: translateX(2px);
+      }
+
+      50% {
+        transform: translateX(200px);
+      }
+
+      100% {
+        transform: translateX(100px);
+      }
+    }
+  </style>
 </head>
+
 <body>
-<!--
+  <!--
 1. vue动画的理解
   操作css的trasition或animation
   vue会给目标元素添加/移除特定的class
@@ -19,11 +40,30 @@
   xxx-leave-active: 指定隐藏的transition
   xxx-enter: 指定隐藏时的样式
 -->
+  <div id="root">
+    <transition type='animation'>
+      <p v-show='isShow'>巴拉巴拉小魔仙</p>
+    </transition>
+    <button @click='isShow=!isShow'>按钮</button>
+  </div>
 
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#root',
+      data: {
+        isShow: true
+      }
+    })
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script type="text/javascript">
-
-</script>
+    /* 
+    使用内置组件transition做动画是要写type='animation'
+    一定要有个触发条件
+    写关键针@keyframes，其余的和过度一样
+    
+    
+    */
+  </script>
 </body>
+
 </html>

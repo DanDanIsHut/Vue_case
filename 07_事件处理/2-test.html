@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>07_事件处理</title>
+</head>
+
+<body>
+  <!--
+1. 绑定监听:
+  v-on:xxx="fun"
+  @xxx="fun"
+  @xxx="fun(参数)"
+  默认事件形参: event
+  隐含属性对象: $event
+2. 事件修饰符:
+  .prevent : 阻止事件的默认行为 event.preventDefault()
+  .stop : 停止事件冒泡 event.stopPropagation()
+3. 按键修饰符
+  .keycode : 操作的是某个keycode值的健
+  .enter : 操作的是enter键
+-->
+
+  <div id="example">
+
+    <h2>1. 绑定监听</h2>
+    <p>{{num}}</p>
+    <button @click='handleclick("num",2,$event)'>按钮</button>
+
+    <h2>2. 事件修饰符</h2>
+    <a @click.prevent="handleclick" href="http://www.baidu.com">百度</a>
+
+    <div @click='handleclick1'>
+      巴拉巴
+      <div @click.stop='handleclick2'>巴拉巴拉小魔仙</div>
+    </div>
+
+    <!-- 提交时不再重载页面 -->
+    <form @submit.prevent='handleclick1'>
+      <input type="text" v-model='msg'>
+      <button type="submit">提交</button>
+    </form>
+    <h2>3. 按键修饰符</h2>
+    <input type="text" v-model=str @keyup.13='handleclick2'>
+    <input type="text" v-model=str @keyup.enter='handleclick2'>
+  </div>
+
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#example',
+      data: {
+        num: 0,
+        msg: '',
+        str: ''
+      },
+      methods: {
+        handleclick(a, b, e) {
+          this.num++;
+          console.log(arguments)
+        },
+        handleclick1() {
+          console.log('巴拉巴')
+        },
+        handleclick2() {
+          console.log('巴拉巴拉小魔仙')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

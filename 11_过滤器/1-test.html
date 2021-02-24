@@ -24,26 +24,53 @@
   <!--需求: 对当前时间进行指定格式显示-->
   <div id="test">
     <h2>显示格式化的日期时间</h2>
-    <p>{{data | formatDate}}</p>
+    <!-- <p>{{data | formatDate}}</p> -->
+    <!-- <p>{{data | formatDate('YYYY-MM-DD')}}</p>
+    <p>{{data | formatDate('HH:mm:ss')}}</p> -->
+    <p>{{data | formatDate1('YYYY-MM-DD')}}</p>
+    <p>{{data | formatDate1('HH:mm:ss')}}</p>
   </div>
 
   <script type="text/javascript" src="../js/vue.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.3/dayjs.min.js"></script>
   <script>
+    /* 
+    /*
+    处理日期的函数库
+    moment.js  老大哥，不在维护了
+    dayjs 类似于momentjs用法
+    date-fns 类似于lodash用法
+*/
+
+    
+    //过滤器作用：将显示的数据进行格式化再显示
+    //全局的过滤器  可以在所有的组件上使用
+    Vue.filter('formatDate1', function (value, formatStr) {
+      return dayjs(value).format(formatStr)
+    })
+
+    //引入dayjs后全局会多一个dayjs的函数
     new Vue({
       el: '#test',
       data: {
         data: Date.now()
       },
-      //局部过滤器
+      //局部过滤器 只在当前组件使用
       filters: {
 
         //如果不传参数，用的就是当前的时间戳，如果传参数用的就是传入的时间戳
         /* formatDate(value) {
           console.log(value)
+          //
+          return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
         } */
 
-        formatDate(){
-
+        /* 第一个参数是固定的，传入的时间戳
+        
+          从第二个开始就是自己写要传入的参数，可以有很多个
+        */
+        formatDate(value, formatStr) {
+          return dayjs(value).format(formatStr)
         }
       }
     })

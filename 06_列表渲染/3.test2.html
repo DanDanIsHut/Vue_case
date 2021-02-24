@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>06_列表渲染_过滤与排序</title>
 </head>
+
 <body>
-<!--
+  <!--
 1. 列表过滤
 2. 列表排序
 -->
+  <div class="root">
+    <input type="text" placeholder="请输入搜索用户名" v-model='searchName'>
+    <ul>
+      <li v-for='(person,index) in changeData' :key='person.id'>
+        {{person.id}}---{{person.name}}---{{person.age}}
+      </li>
+    </ul>
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script type="text/javascript">
-  
-</script>
+    <button @click='orderType ="asc"'>年龄升序</button>
+    <button @click='orderType ="desc"'>年龄降序</button>
+    <button @click='orderType ="origin"'>原本排序</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '.root',
+      data: {
+        searchName: '',
+        person: [{
+            id: 1,
+            name: 'cxd',
+            age: 12
+          },
+          {
+            id: 2,
+            name: 'cms',
+            age: 18
+          },
+          {
+            id: 3,
+            name: 'peiqi',
+            age: 15
+          },
+          {
+            id: 4,
+            name: 'jenni',
+            age: 2
+          },
+          {
+            id: 5,
+            name: 'jack',
+            age: 7
+          }
+        ],
+        orderType: 'origin'
+      },
+      computed: {
+        changeData() {
+          console.log(this)
+          const changeData = this.person.filter((person) => {
+            //console.log(this)
+            return person.name.includes(this.searchName)
+          })
+
+          //排序
+          //如果orderType === 'origin'就直接返回过滤之后的结果
+          if (this.orderType === 'origin') return changeData
+
+          const sortperson = changeData.sort((a, b) => {
+            return this.orderType === 'asc' ? a.age - b.age : b.age - a.age
+
+          })
+
+          return sortperson
+        }
+      }
+    })
+  </script>
 </body>
+
 </html>

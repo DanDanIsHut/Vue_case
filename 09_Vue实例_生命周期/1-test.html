@@ -33,18 +33,24 @@
 
   <script type="text/javascript" src="../js/vue.js"></script>
   <script type="text/javascript">
-    /* 挂载阶段有四个生命周期钩子函数
+    /* 挂载阶段有四个生命周期钩子函数  一上来就自动触发
       beforeCreate()
+          在数据代理之前触发的
+          此时还不能通过this访问数据(data)
       created()
       beforeMount()
       mounted()
+        页面渲染完毕了，此时才能操作DOM
+        发送请求、设置定时器、绑定事件等一次性任务
 
-      更新阶段有两个生命周期钩子函数
-      beforeUpdate()
-      updated()
+      更新阶段有两个生命周期钩子函数:是先修改数据再触发更新，两个函数打印出的都一样
+      beforeUpdate()  没有渲染到页面
+      updated()  渲染到页面上了
 
-      卸载阶段有两个生命周期钩子函数
+      卸载阶段有两个生命周期钩子函数 this.$destroy()才会触发
       beforeDestroy()
+        做一些收尾工作：清除定时器、解绑事件
+        通过@事件名绑定的事件，Vue会自动解绑，自己定义(原生的事件绑定)需要手动解绑。否则内存泄漏
       destroyed()
 
 
@@ -56,7 +62,8 @@
         num: 0
       },
       beforeCreate() {
-        //beforeCreate()一上来就自动触发，并且是在数据代理之前，
+        //数据代理：将data、methods、computed中的数据代理this上
+        //beforeCreate()，在数据代理之前，执行，所以再this上找不到num
         console.log(this.num) //undefined  
         console.log('beforeCreate()')
       },

@@ -31,21 +31,24 @@
       <label for="male">男</label><br>
 
       <span>爱好: </span>
-      <input type="checkbox" id="basket">
+      <input type="checkbox" id="basket" value="basket" v-model='person.hobby'>
       <label for="basket">篮球</label>
-      <input type="checkbox" id="foot">
+      <input type="checkbox" id="foot" value="foot" v-model='person.hobby'>
       <label for="foot">足球</label>
-      <input type="checkbox" id="pingpang">
+      <input type="checkbox" id="pingpang" value="pingpang" v-model='person.hobby'>
       <label for="pingpang">乒乓</label><br>
 
       <span>城市: </span>
-      <select>
-        <option value="">未选择</option>
+      <select v-model='person.city'>
+        <option value="0">未选择</option>
+        <option value="1">深圳</option>
+        <option value="2">长沙</option>
+        <option value="3">杭州</option>
       </select><br>
       <span>介绍: </span>
-      <textarea rows="10"></textarea><br><br>
-
-      <input type="submit" value="注册">
+      <textarea rows="10" v-model='person.test'></textarea><br><br>
+      <!-- 一般阻止默认的发生请求，自己写发生请求，记录用户输入的数据 -->
+      <input type="submit" value="注册" @click.prevent='handle'>
     </form>
   </div>
 
@@ -57,7 +60,15 @@
         person: {
           userName: '',
           password: '',
-          sex: 0
+          sex: 0,
+          hobby: [],
+          city:0,
+          test:''
+        }
+      },
+      methods:{
+        handle(){
+          console.log(this.person)
         }
       }
     })

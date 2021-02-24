@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>10_过渡&动画1</title>
+  <style>
+    .v-enter {
+      transform: translateX(100px);
+    }
+
+    .v-enter-active {
+      transition: transform 2s;
+    }
+
+    .v-enter-to {
+      transform: translateX(0);
+    }
+
+
+    .v-leave {
+      transform: translateX(0);
+    }
+
+    .v-leave-active {
+      transition: transform 2s;
+    }
+
+    .v-leave-to {
+      transform: translateX(100px);
+    }
+
+    .fade-leave {
+      transform: translateX(0);
+    }
+
+    .fade-leave-active {
+      transition: transform 2s;
+    }
+
+    .fade-leave-to {
+      transform: translateX(100px);
+    }
+
+    .rigth {
+      transform: translateX(300px);
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+1. vue动画的理解
+  操作css的transition或animation
+  vue会给目标元素添加/移除特定的class
+2. 基本过渡动画的编码
+  1). 在目标元素外包裹<transition name="xxx">
+  2). 定义class样式
+    1>. 指定过渡样式: transition
+    2>. 指定隐藏时的样式: opacity/其它
+3. 过渡的类名
+  xxx-enter-active: 指定显示的transition
+  xxx-leave-active: 指定隐藏的transition
+  xxx-enter: 指定隐藏时的样式
+-->
+  <div id="root">
+    <button @click='isShow=!isShow'>按钮</button>
+    <transition>
+      <p v-show='isShow'>巴拉巴拉小魔仙</p>
+    </transition>
+
+    <!-- <transition>
+      <p v-if='!isShow'>巴拉巴拉巴拉巴拉小魔仙</p>
+    </transition> -->
+
+    <transition name='fade'>
+      <p v-if='isShow' class="right">巴拉巴拉小魔仙</p>
+    </transition>
+
+  </div>
+
+  <!-- 
+    transition过度一般配合v-if或v-show一起使用
+    在标签外层包包裹一层transtion，会为内部显示/隐藏的元素添加一些类名
+      显示 -> 隐藏
+        开始 v-leave
+        中间 v-leave-active
+        结束 v-leave-to
+      隐藏 -> 显示
+        开始 v-enter
+        中间 v-enter-active
+        结束 v-enter-to
+
+     可以重新设置个类名name='xxx'  就是将v换成xxx  v-enter/xxx-enter
+
+
+   -->
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#root',
+      data: {
+        isShow: true
+      }
+    })
+  </script>
+</body>
+
+</html>
