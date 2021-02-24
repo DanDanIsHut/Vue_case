@@ -9,7 +9,86 @@
 </head>
 
 <body>
+    <div id="root">
+        <p>{{num}}</p>
+        <button @click='num++'>按钮</button>
+
+        <h2>对象</h2>
+        <ul>
+            <li v-for='(value,key) in person' :key='key'>
+                {{value}}------{{key}}
+            </li>
+        </ul>
+        <button @click='handleObj'>按钮</button>
+
+        <h2>数组</h2>
+        <ul>
+            <li v-for='persons in persons' :key='persons.id'>
+                {{persons.id}}------{{persons.name}}
+            </li>
+        </ul>
+        <button @click='handleArr'>按钮</button>
+    </div>
     <script src="../js//vue.js"></script>
+    <script>
+        // 响应式：当你更新数据的时候，数据发生了变化，同时用户界面也发生了变化
+        // 这个数据叫做响应式数据
+        new Vue({
+            el: '#root',
+            data: {
+                num: 0,
+                person: {
+                    name: 'cxd',
+                    age: 18
+                },
+                persons: [{
+                        id: 1,
+                        name: 'jack'
+                    },
+                    {
+                        id: 2,
+                        name: 'rose'
+                    }
+                ]
+            },
+            methods: {
+                handleObj() {
+                    //this.person.age = 20 //可以  响应式
+                    //this.person.sex = 'nv' //不可以
+                    //当this.person.age = 20和 this.person.sex = 'nv'一起执行时，
+                    //this.person.sex = 'nv'可以被添加到页面上，因为在执行this.person.age = 20时
+                    //会将整个页面的数据进行更新，然后发现了this.person.sex = 'nv'，就顺便也更新了
+                    //不建议使用
+
+                    this.$set(this.person, 'sex', 'nv') //这个方法，就是专门添加响应式数据的方法  Vue实例对象上的方法
+                    Vue.set(this.person, 'hobby', '敲代码') //这个方法，就是专门添加响应式数据的方法  Vue对象上的方法
+                },
+
+                handleArr() {
+                    //this.persons[0].name= 'cxd' //可以
+                    //this.persons[2] ={id:3,name:'cxd'} //不可以
+                    //this.persons[0].age = 10  //不可以
+
+                    // 数组的变更方法：Vue重写了数组的方法，所以能变成响应式
+                    //只有一部分方式：更改了原数组的就可以
+                    this.persons.push({
+                        id: 3,
+                        name: 'cxd'
+                    })
+                }
+            }
+        })
+
+        /* 
+        /*
+            data中原有所有属性都是响应式的，新添加的属性就不是响应式的
+              注意：
+                不要给对象添加新属性
+                  如果需要给对象添加新属性 this.$set
+                不要在数组通过下标去添加新值或新属性
+                  如果需要给数组添加新值，用push等方法
+          */
+    </script>
 </body>
 
 </html>

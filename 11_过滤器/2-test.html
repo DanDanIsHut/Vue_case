@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>11_过滤器</title>
 </head>
+
 <body>
-<!--
+  <!--
 1. 理解过滤器
   功能: 对要显示的数据进行特定格式化后再显示
   注意: 并没有改变原本的数据, 可是产生新的对应的数据
@@ -19,14 +21,38 @@
     <div>{{myData | filterName}}</div>
     <div>{{myData | filterName(arg)}}</div>
 -->
-<!--需求: 对当前时间进行指定格式显示-->
-<div id="test">
-  <h2>显示格式化的日期时间</h2>
-</div>
+  <!--需求: 对当前时间进行指定格式显示-->
+  <div id="test">
+    <h2>显示格式化的日期时间</h2>
+    <!-- <p>{{date | filterDate}}</p> -->
+    <p>{{date | filterDate('YYYY-MM-DD')}}</p>
+    <p>{{date | filterDate('HH:mm:ss')}}</p>
+  </div>
 
-<script type="text/javascript" src="../js/vue.js"></script>
-<script>
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.3/dayjs.min.js"></script>
+  <script>
+    //全局过滤器  在Vue函数上的
+    Vue.filter('filterDate', (value, fliterFormat) => {
+      return dayjs(value).format(fliterFormat)
+    })
+    new Vue({
+      el: '#test',
+      data: {
+        date: Date.now()
+      },
+      //过滤器  局部过滤器  在实例上
+      filters: {
+        /* filterDate(value){
+          return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
+        } */
 
-</script>
+        /* filterDate(value,fliterFormat){
+          return dayjs(value).format(fliterFormat)
+        } */
+      }
+    })
+  </script>
 </body>
+
 </html>
