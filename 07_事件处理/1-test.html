@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>07_事件处理</title>
+</head>
+
+<body>
+  <!--
+1. 绑定监听:
+  v-on:xxx="fun"
+  @xxx="fun"
+  @xxx="fun(参数)"
+  默认事件形参: event
+  隐含属性对象: $event
+2. 事件修饰符:
+  .prevent : 阻止事件的默认行为 event.preventDefault()
+  .stop : 停止事件冒泡 event.stopPropagation()
+3. 按键修饰符
+  .keycode : 操作的是某个keycode值的健
+  .enter : 操作的是enter键
+-->
+
+  <div id="example">
+
+    <h2>1. 绑定监听</h2>
+    <!-- 绑定事件中的函数在不写参数的情况下自动添加event参数 -->
+    <button v-on:click='handleClick1'>按钮1</button>
+    <!-- 绑定事件中的函数在写参数的情况,参数就是写的数 -->
+    <button @click='handleClick2(1,2)'>按钮2</button>
+    <!-- 绑定事件中的函数既要参数，又有event事件，event事件用$event设置 -->
+    <button @click='handleClick3(1,2,$event)'>按钮3</button>
+
+    <h2>2. 事件修饰符</h2>
+    <!-- 阻止默认事件   -->
+    <a href="http://www.baidu.com" @click='handleClick4'>百度</a>
+    <a href="http://www.baidu.com" @click.prevent='handleClick4'>百度</a>
+
+    <!-- 这样会产生冒泡 -->
+    <!-- 就需要阻止传播 -->
+    <div @click='handleClick5'>
+      555555
+      <div @click.stop='handleClick6'>66666</div>
+    </div>
+
+
+    <h2>3. 按键修饰符</h2>
+    <!-- 原生 -->
+    <input type="text" @keyup='handleClick7'>
+    <!-- 支持键码表 -->
+    <input type="text" @keyup.13='handleClick8'>
+    <!-- 支持部分英文 -->
+    <input type="text" @keyup.enter='handleClick8'>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#example',
+      data: {
+        count: 0
+      },
+      methods: {
+        handleClick1(e) {
+          console.log(e)
+        },
+        handleClick2() {
+          console.log(arguments)
+        },
+        handleClick3(a, b, event) {
+          console.log(a)
+          console.log(b)
+          console.log(event)
+        },
+        handleClick4(e) {
+          // e.preventDefault()
+          // console.log(1)
+        },
+        handleClick5(e) {
+          console.log(5)
+        },
+        handleClick6(e) {
+          console.log(6)
+        },
+        handleClick7(e) {
+          if (e.keyCode === 13) {
+            console.log(13)
+          }
+        },
+        handleClick8(e) {
+          console.log(13)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

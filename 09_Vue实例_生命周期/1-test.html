@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>09_Vue实例_生命周期</title>
+</head>
+
+<body>
+  <!--
+1. vue对象的生命周期
+  1). 初始化显示
+    * beforeCreate()
+    * created()
+    * beforeMount()
+    * mounted()
+  2). 更新状态
+    * beforeUpdate()
+    * updated()
+  3). 销毁vue实例: vm.$destory()
+    * beforeDestory()
+    * destoryed()
+2. 常用的生命周期方法
+  created()/mounted(): 发送ajax请求, 启动定时器等异步任务
+  beforeDestory(): 做收尾工作, 如: 清除定时器
+-->
+
+  <div id="root">
+    <p>{{num}}</p>
+    <button @click='num++'>更新</button>
+    <button @click='$destroy()'>卸载</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    /* 挂载阶段有四个生命周期钩子函数
+      beforeCreate()
+      created()
+      beforeMount()
+      mounted()
+
+      更新阶段有两个生命周期钩子函数
+      beforeUpdate()
+      updated()
+
+      卸载阶段有两个生命周期钩子函数
+      beforeDestroy()
+      destroyed()
+
+
+      销毁Vue实例：VM.$destroy()   this.$destroy()
+  */
+    new Vue({
+      el: '#root',
+      data: {
+        num: 0
+      },
+      beforeCreate() {
+        //beforeCreate()一上来就自动触发，并且是在数据代理之前，
+        console.log(this.num) //undefined  
+        console.log('beforeCreate()')
+      },
+      created() {
+        console.log(this.num)
+        console.log('created()')
+      },
+      beforeMount() {
+        console.log('beforeMount()')
+      },
+      mounted() {
+        console.log('mounted()')
+      },
+      beforeUpdate() {
+        console.log('beforeUpdate()')
+      },
+      updated() {
+        console.log('updated()')
+      },
+      beforeDestroy() {
+        console.log('beforeDestroy()')
+      },
+      destroyed() {
+        console.log('destroyed()')
+      }
+    })
+  </script>
+</body>
+
+</html>

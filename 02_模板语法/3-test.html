@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>02_模板语法</title>
+</head>
+
+<body>
+  <!--
+      1. 模板的理解:
+        动态的html页面
+        包含了一些JS语法代码
+          双大括号表达式
+          指令(以v-开头的自定义标签属性)
+      2. 双大括号表达式
+        语法: {{exp}} 或 {{{exp}}}
+        功能: 向页面输出数据
+        可以调用对象的方法
+      3. 指令一: 强制数据绑定
+        功能: 指定变化的属性值
+        完整写法:
+          v-bind:xxx='yyy'  //yyy会作为表达式解析执行
+        简洁写法:
+          :xxx='yyy'
+      4. 指令二: 绑定事件监听
+        功能: 绑定指定事件名的回调函数
+        完整写法:
+          v-on:click='xxx'
+        简洁写法:
+          @click='xxx'
+      -->
+  <div id="app">
+    <h2>1. 双大括号表达式</h2>
+    <p>{{name}}</p>
+
+    <h2>2. 指令一:双向数据绑定</h2>
+    <input tyle='text' v-model='msg'>
+    <p>{{msg}}</p>
+
+    <h2>3. 指令二: 强制数据绑定</h2>
+    <input v-bind:value='direc'>
+    <input :value='direc'>
+
+    <h2>4. 指令三: 绑定事件监听</h2>
+    <button v-on:click='handleClick'>按钮</button>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        name: 'Vue',
+        msg: '双向数据绑定',
+        direc: '强制数据绑定'
+      },
+      methods: {
+        handleClick() {
+          console.log(this)
+        }
+      }
+    })
+
+
+    /* 
+    v-model='js表达式'   js表达式为js数据的属性名 
+    双向数据绑定
+    1。绑定了表单的value属性，将js数据动态渲染到页面上 M---> V
+    2.绑定了input事件，当页面上表单的值发生改变时自动修改绑定的data(js)数据 V---> M
+    只能用于: 表单项 input select radio textarea...
+    
+    v-bind:属性名='js表达式'  js表达式为js数据的属性名 
+    强制数据绑定(单向数据绑定)
+    完整写法：v-bind:属性名='js表达式'
+    简写：:属性名='js表达式'
+    作用： 给标签属性绑定某个动态数据 M---> V
+    只能将js数据动态渲染到页面上，不能通过修改页面来修改js数据
+     扩展:将来常用于父子组件通信，props方式传递数据
+
+
+    v-on:事件名:'js表达式(回调函数)'
+    绑定事件监听
+    */
+  </script>
+</body>
+
+</html>

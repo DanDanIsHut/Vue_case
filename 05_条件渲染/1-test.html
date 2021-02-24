@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>08_条件渲染</title>
+</head>
+
+<body>
+  <!--
+      1. 条件渲染指令
+        v-if
+        v-else
+        v-show
+      2. 比较v-if与v-show
+        如果需要频繁切换 v-show 较好
+
+        
+      -->
+
+  <div id="app">
+    <p>喜欢的宠物</p>
+    <p v-if='flag'>博美犬</p>
+    <!--  <p v-if='!flag'>布偶猫</p> -->
+    <!--  <p v-else>布偶猫</p> -->
+    <!-- <p v-else-if='true'>布偶猫</p> -->
+    <!-- if在执行的时候如果符合就不会再往下执行了，当if为false时，下面的else-if是true，也不会往下执行了，再次点击时if又为true，又从头开始 -->
+    <!-- <p v-else='flag'>蓝猫</p> -->
+    <p v-show='flag'>布偶猫</p>
+
+    <!-- 在回调函数中如果只有一条语句，可以直接写，忽略函数 -->
+    <!-- 不能写this，会自动找this  -->
+    <button @click='flag = !flag'>按钮</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#app',
+      data: {
+        flag: true
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>06_列表渲染_过滤与排序</title>
+</head>
+
+<body>
+  <!--
+1. 列表过滤
+2. 列表排序
+-->
+  <div class="root">
+    <input type="text" placeholder="请输入搜索用户名" v-model='searchName'>
+    <ul>
+      <li v-for='(full,index) in filterChange' :key='full.id'>
+        {{full.id}}---{{full.name}}---{{full.age}}
+      </li>
+    </ul>
+
+    <button>年龄升序</button>
+    <button>年龄降序</button>
+    <button>原本排序</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '.root',
+      data: {
+        //用来存输入框的值
+        searchName: '',
+        full: [{
+            id: 1,
+            name: 'xiangjiao',
+            age: 14
+          },
+          {
+            id: 2,
+            name: 'pingguo',
+            age: 13
+          },
+          {
+            id: 3,
+            name: 'putao',
+            age: 12
+          },
+          {
+            id: 4,
+            name: 'hamihua',
+            age: 18
+          },
+          {
+            id: 5,
+            name: 'lizi',
+            age: 11
+          },
+          {
+            id: 6,
+            name: 'chengzi',
+            age: 20
+          },
+        ],
+      },
+
+      computed: {
+        filterChange() {
+          const filterChange = this.full.filter((full) => {
+            return full.name.includes(this.searchName)
+          })
+          return filterChange
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

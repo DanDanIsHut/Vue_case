@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>08_表单输入绑定</title>
+</head>
+
+<body>
+  <!--
+1. 使用v-model(双向数据绑定)自动收集数据
+  text/textarea
+  checkbox
+  radio
+  select
+-->
+  <div id="demo">
+    <form action="/xxx">
+      <span>用户名: </span>
+      <input type="text" v-model='person.userName'><br>
+
+      <span>密码: </span>
+      <input type="password" v-model='person.password'><br>
+
+      <span>性别: </span>
+      <!-- 这里的v-model就替代name的作用，将两个订为一组数据 -->
+      <!-- 当强制绑定属性的时候，等于后面的引号就语句了，就会自动去数据里找相关的对象，如果需要引号则:value="'0'"  -->
+      <input type="radio" id="female" :value="0" v-model='person.sex'>
+      <label for="female">女</label>
+      <input type="radio" id="male" :value="1" v-model='person.sex'>
+      <label for="male">男</label><br>
+
+      <span>爱好: </span>
+      <input type="checkbox" id="basket">
+      <label for="basket">篮球</label>
+      <input type="checkbox" id="foot">
+      <label for="foot">足球</label>
+      <input type="checkbox" id="pingpang">
+      <label for="pingpang">乒乓</label><br>
+
+      <span>城市: </span>
+      <select>
+        <option value="">未选择</option>
+      </select><br>
+      <span>介绍: </span>
+      <textarea rows="10"></textarea><br><br>
+
+      <input type="submit" value="注册">
+    </form>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#demo',
+      data: {
+        person: {
+          userName: '',
+          password: '',
+          sex: 0
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

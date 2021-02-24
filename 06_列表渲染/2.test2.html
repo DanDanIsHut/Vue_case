@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>06_列表渲染_过滤与排序</title>
+</head>
+
+<body>
+  <!--
+1. 列表过滤
+2. 列表排序
+-->
+
+  <!-- 分析：
+  请输入搜索用户名 ---》
+  1.输入---》获取输入的内容
+  2.根据输入的内容搜索用户名
+
+  filter 过滤，满足条件的返回
+  includes  包含
+-->
+  <div class="root">
+    <input type="text" placeholder="请输入搜索用户名" v-model='searchName'>
+    <ul>
+      <li v-for='(full,index) in filterFull' :key='full.id'>
+        {{full.id}}---{{full.name}}---{{full.age}}
+      </li>
+    </ul>
+
+    <button>年龄升序</button>
+    <button>年龄降序</button>
+    <button>原本排序</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '.root',
+      data: {
+        searchName: '',
+        full: [{
+            id: 1,
+            name: 'jack',
+            age: 18
+          },
+          {
+            id: 2,
+            name: 'rose',
+            age: 16
+          },
+          {
+            id: 3,
+            name: 'tom',
+            age: 20
+          },
+          {
+            id: 4,
+            name: 'jerry',
+            age: 23
+          },
+          {
+            id: 5,
+            name: 'peiqi',
+            age: 24
+          },
+          {
+            id: 6,
+            name: 'peihua',
+            age: 10
+          },
+        ]
+      },
+
+      //要通过过滤将不需要的数据不显示，需要用到计算属性
+      computed: {
+        //不需要改写，所以只用到只读计算属性
+        filterFull() {
+          const filterFull = this.full.filter((full) => {
+            return full.name.includes(this.searchName)
+          })
+          console.log(filterFull)
+          return filterFull
+        },
+        //这里返回一个新的数组，要渲染新数组
+
+        /* 
+        将获得的filterFull进行排序
+        
+        */
+        ageChange() {
+
+        }
+
+      }
+    })
+  </script>
+</body>
+
+</html>
