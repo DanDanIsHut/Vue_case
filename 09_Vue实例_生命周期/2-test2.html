@@ -26,7 +26,7 @@
 -->
 
   <div id="root">
-    <button>按钮</button>
+    <button @click='$destroy()'>按钮</button>
     <p v-show='isShow'>巴拉巴拉</p>
   </div>
 
@@ -35,13 +35,17 @@
     new Vue({
       el: '#root',
       data: {
-        isShow:true
+        isShow: true
       },
       mounted() {
-        this.timer = setInterval(()=>{
+        this.timer = setInterval(() => {
           console.log(this)
           this.isShow = !this.isShow
-        },500)
+        }, 500)
+      },
+      beforeDestroy() {
+        console.log(1)
+        clearInterval(this.timer)
       }
     })
   </script>
