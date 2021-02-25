@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>06_列表渲染</title>
+</head>
+
+<body>
+
+  <!--
+1. 列表显示
+  数组: v-for / index
+  对象: v-for / key
+2. 列表的更新显示
+  删除item
+  替换item
+-->
+
+  <div id="demo">
+    <input type="text" placeholder="请输入搜索的用户名" v-model='searchName'>
+    <ul>
+      <li v-for='person in ChangeDate'>
+        {{person.id}} --------{{person.name}}--------{{person.age}}--------
+        <span v-for='value in person.hobby'>{{value}}</span>
+      </li>
+    </ul>
+
+    <button @click='asc'>年龄升序</button>
+    <button @click='desc'>年龄降序</button>
+    <button @click='origin'>原本排序</button>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#demo',
+      data: {
+        person: [{
+            id: 1,
+            name: 'cxd',
+            hobby: ['敲代码', '打酱油'],
+            age: 12
+          },
+          {
+            id: 2,
+            name: 'yy',
+            hobby: ['学习', '听歌'],
+            age: 14
+          },
+          {
+            id: 3,
+            name: 'dyy',
+            hobby: ['打游戏', '化妆'],
+            age: 15
+          },
+          {
+            id: 4,
+            name: 'dyb',
+            hobby: ['看小说', '打游戏'],
+            age: 10
+          },
+          {
+            id: 5,
+            name: 'qy',
+            hobby: ['打篮球', '烟酒'],
+            age: 3
+          },
+        ],
+        searchName: '',
+        //因为在排序的时候会改变原数组，所有需要新建一个数组
+        newDate: ' '
+      },
+      methods: {
+        origin() {
+          console.log(this.newDate)
+          this.newDate = [...this.person]
+        },
+        asc() {
+          console.log(this.newDate)
+          this.newDate = this.newDate.sort((a, b) =>
+            a.age - b.age
+          )
+          console.log(this.newDate)
+        },
+        desc() {
+          this.newDate = this.newDate.sort((a, b) =>
+            b.age - a.age
+          )
+          console.log(this.newDate)
+        }
+      },
+      computed: {
+        ChangeDate() {
+
+          if (this.newDate === ' ') {
+            this.newDate = [...this.person]
+          }
+
+          const ChangeDate = this.newDate.filter((person) => {
+            return person.name.includes(this.searchName)
+          })
+          //排序
+          return ChangeDate
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <h2>虹猫蓝兔七侠传 </h2>
+        <input type="text" placeholder="请输入用户名搜索" v-model="xia">
+        <ul>
+            <li v-for="person in personss" :key='person.id'>
+                {{person.id}}---{{person.name}}---{{person.age}}
+            </li>
+        </ul>
+        <button @click="jiang">年龄降序</button>
+        <button @click="sheng">年龄升序</button>
+        <button @click="yuan">恢复原状</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                xia: '',
+                persons: [{
+                        id: 0,
+                        name: 'a虹猫',
+                        age: 18
+                    },
+                    {
+                        id: 1,
+                        name: 'c蓝兔',
+                        age: 16
+                    },
+                    {
+                        id: 2,
+                        name: 'c大奔',
+                        age: 20
+                    },
+                    {
+                        id: 3,
+                        name: 'b逗逗',
+                        age: 17
+                    },
+                    {
+                        id: 4,
+                        name: 'c莎莉',
+                        age: 22
+                    },
+                    {
+                        id: 5,
+                        name: 'b跳跳',
+                        age: 21
+                    },
+                    {
+                        id: 6,
+                        name: 'a达达',
+                        age: 23
+                    },
+                ],
+                newpersons: ''
+            },
+            methods: {
+                yuan() {
+                    // console.log(this.persons,2)   
+                    this.newpersons = [...this.persons]
+                    console.log(this.newpersons)
+                },
+                jiang() {
+
+                    this.newpersons = this.newpersons.sort((a, b) => a.age - b.age)
+                    console.log(this.newpersons)
+                },
+                sheng() {
+                    this.newpersons = this.newpersons.sort((a, b) => b.age - a.age)
+                    console.log(this.newpersons)
+                },
+
+            },
+            computed: {
+                personss() {
+                    if (this.newpersons === '') {
+                        this.newpersons = [...this.persons]
+                    }
+                    // this.newpersons=this.persons
+                    //  this.newpersons=JSON.parse(JSON.stringify(this.persons))
+                    const res = this.newpersons.filter(ming => {
+                        return ming.name.includes(this.xia)
+                    })
+                    return res
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
