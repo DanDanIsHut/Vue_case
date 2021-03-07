@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../js/vue.js"></script>
+    <ul id="demo">
+        <button @click='handle'>按钮</button>
+        <li v-for='(person,index) in person' :key='index'>
+            {{person.id}}----{{person.name}}
+            <span v-if='person.hobby && person.hobby.length'>
+                <span v-for='(item,index) in person.hobby'>{{item}}</span>
+            </span>
+        </li>
+    </ul>
+
+    <script>
+        new Vue({
+            el: '#demo',
+            data: {
+                person: [{
+                        id: 1,
+                        name: 'cxd',
+                        hobby: ['敲代码', '打游戏']
+                    },
+                    {
+                        id: 2,
+                        name: 'yy'
+                    },
+                    {
+                        id: 3,
+                        name: 'dyy'
+                    },
+                    {
+                        id: 4,
+                        name: 'dyb'
+                    },
+                ]
+            },
+            methods: {
+                handle() {
+                    this.person.push({
+                            id: 5,
+                            name: 'qy',
+                            hobby: ['打篮球', '吃东西']
+                        }),
+                        console.log(1)
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

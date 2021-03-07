@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root">
+        <p></p>
+        <p>{{date | str('YYYY:MM:DD')}}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.3/dayjs.min.js"></script>
+    <script src="./myPlugin.js"></script>
+    <script>
+        //使用插件
+        Vue.use(myPlugin);
+        new Vue({
+            el: '#root',
+            data: {
+                msg: 'hello',
+                date: Date.now()
+            },
+            //使用插件里的函数
+            mounted() {
+                Vue.globalMethod()
+                this.$localMethod()
+            }
+        })
+    </script>
+</body>
+
+</html>

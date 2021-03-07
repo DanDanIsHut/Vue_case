@@ -17,6 +17,9 @@
       3. 计算属性高级:
         通过getter/setter实现对属性数据的显示和监视
         计算属性存在缓存, 多次读取只执行一次getter计算
+
+        计算属性计算的是data里没有的值
+        监视属性是监视data里有的值
     -->
   <div id="app">
     姓: <input type="text" placeholder="First Name" v-model='firstName' /><br />
@@ -35,7 +38,8 @@
         firstName: 'cao',
         lastName: 'xidan',
         Name: 'cao xidan',
-        count: 0
+        count: 0,
+        // firstName1: 'Bqqr'
       },
       methods: {
         handleCount() {
@@ -56,9 +60,10 @@
           get() {
             return this.firstName + ' ' + this.lastName
           },
-          set(newVal) {
-            console.log(newVal)
-            const [firstName, lastName] = newVal.split(' ')
+          set(value) {
+            // console.log(newVal)
+            // const [firstName, lastName] = newVal.split(' ')
+            const [firstName, lastName] = value.split(' ')
             this.firstName = firstName
             this.lastName = lastName
           }
@@ -70,16 +75,16 @@
       watch: {
         //监视属性，一旦属性发送变化时就调用下面的函数
         //修改姓名2的同时修改姓
-        firstName(newVal, oldVal) {
-          console.log(newVal)
-          console.log(oldVal)
-          this.Name = newVal + ' ' + this.lastName
-          //console.log(this)
-        },
+        // firstName(newVal, oldVal) {
+        //   console.log(newVal)
+        //   console.log(oldVal)
+        //   this.Name = newVal + ' ' + this.lastName
+        //   //console.log(this)
+        // },
         //修改姓名2的同时修改名
-        lastName(newVal) {
-          this.Name = this.firstName + ' ' + newVal
-        },
+        // lastName(newVal) {
+        //   this.Name = this.firstName + ' ' + newVal
+        // },
         //修改姓名2的同时修改姓和名
         Name(newVal) {
           //console.log(newVal)
